@@ -25,12 +25,12 @@ class Information {
 
 		val dc = DatabaseConfig.forAnnotation[JdbcProfile]
 		val db = dc.db
-		val test_dao = new models.db.Information
-		val data = db.run(test_dao.getSelectQuery)
-		val hoge = Await.result(data, Duration.Inf)
-		val list = hoge.map((fuga) => {
-			val piyo = (fuga._1, fuga._2, new org.joda.time.DateTime(fuga._3), new org.joda.time.DateTime(fuga._4), fuga._5 )
-			InformationData.tupled(piyo)
+		val info_dao = new models.db.Information
+		val info_data = db.run(info_dao.getSelectQuery)
+		val table_data = Await.result(info_data, Duration.Inf)
+		val list = table_data.map((data) => {
+			val convert_data = (data._1, data._2, new org.joda.time.DateTime(data._3), new org.joda.time.DateTime(data._4), data._5 )
+			InformationData.tupled(convert_data)
 		})
 
 		val json = Json.toJson( Json.obj("list" -> list))
