@@ -28,16 +28,11 @@ class Information {
 		val test_dao = new models.db.Information
 		val data = db.run(test_dao.getSelectQuery)
 		val hoge = Await.result(data, Duration.Inf)
-
-		var list: List[InformationData] = List[InformationData]()
-
-		for (fuga <- hoge){
+		val list = hoge.map((fuga) => {
 			val piyo = (fuga._1, fuga._2, new org.joda.time.DateTime(fuga._3), new org.joda.time.DateTime(fuga._4), fuga._5 )
-			val boko: InformationData = InformationData.tupled(piyo)
-			list = boko :: list
-			println(fuga)
-		}
-		list = list.reverse
+			InformationData.tupled(piyo)
+		})
+
 		val json = Json.toJson( Json.obj("list" -> list))
 
 		db.close()
