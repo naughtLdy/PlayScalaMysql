@@ -11,8 +11,8 @@ class Application extends Controller {
 
 	def test = Action {
 		val model = new models.Information
-		model.get
+		val jsonData = model.get
 
-		Ok(views.html.index("Your new application is ready."))
+		Ok(jsonData)
 	}
 }
