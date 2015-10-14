@@ -40,11 +40,7 @@ class Information {
 		})
 
 		val json = Json.toJson(Informations(list))
-		val str = json.toString()
-		val inions = Json.parse(str).validate[Informations].get
 		db.close()
 		return json
 	}
-
-	def sqlTimestampToDateTime: java.sql.Timestamp => org.joda.time.DateTime = { ts => new org.joda.time.DateTime(ts.getTime) }
 }
