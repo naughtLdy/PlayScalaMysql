@@ -39,9 +39,9 @@ class Information {
 			InformationData(data._1, data._2, new org.joda.time.DateTime(data._3), new org.joda.time.DateTime(data._4), data._5)
 		})
 
-    val json = Json.toJson(Informations(list))
-    val str = json.toString()
-    val inions = Json.parse(str).validate[Informations].get
+		val json = Json.toJson(Informations(list))
+		val str = json.toString()
+		val inions = Json.parse(str).validate[Informations].get
 		db.close()
 		return json
 	}
